@@ -9,6 +9,11 @@
             "email": "neil@idearobin.com"
         }
     ],
+    "autoload": {
+        "psr-0": { "Arbitrium\\": "src/" }
+    },
     "minimum-stability": "stable",
-    "require": {}
+    "require": {
+        "php": ">=5.3.0"
+    }
 }

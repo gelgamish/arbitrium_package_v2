@@ -1,6 +1,6 @@
 <?php
 
-namespace Enchance\Core;
+namespace Arbitrium\Core;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;

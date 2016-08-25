@@ -1,6 +1,6 @@
 <?php
 
-namespace Enchance\Core;
+namespace Arbitrium\Core;
 
 use Illuminate\Support\ServiceProvider;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Enchance\Core\Facade;
+namespace Arbitrium\Core\Facade;
 
 use Illuminate\Support\Facades\Facade;
 

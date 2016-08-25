@@ -2,52 +2,52 @@
 
 namespace Arbitrium\Core;
 
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+// use Illuminate\Http\Request;
+// use Illuminate\Routing\Controller;
 
 class Core {
 
-    protected static $file_url = '';
-    protected static $token = '';
-    protected static $cardId = '';
-    protected static $service = '';
+    protected $file_url = '';
+    protected $token = '';
+    protected $cardId = '';
+    protected $service = '';
 
-    public static function setFile($data) {
-        return self::$file_url = $data;
+    public function setFile($data) {
+        return $this->file_url = $data;
     }
 
-    public static function setToken($data) {
-        return self::$token = $data;
+    public function setToken($data) {
+        return $this->token = $data;
     }
 
-    public static function setCardId($data) {
-        return self::$cardId = $data;
+    public function setCardId($data) {
+        return $this->cardId = $data;
     }
 
-    public static function setService($data) {
-        return self::$service = $data;
+    public function setService($data) {
+        return $this->service = $data;
     }
 
-    public static function Lend() {
+    public function Lend() {
         $data = json_encode(array(
-            'file' => self::$file_url,
-            'cardId' => self::$cardId
+            'file' => $this->file_url,
+            'cardId' => $this->cardId
         ));
 
-        $link = "http://localhost:1337/api/lend/" . self::$service;
-        return self::coreCurl($data, $link, self::$token);
+        $link = "http://localhost:1337/api/lend/" . $this->service;
+        return $this->coreCurl($data, $link, $this->token);
     }
 
-    public static function Upload() {
+    public function Upload() {
         $data = json_encode(array(
-            'file' => self::$file_url,
+            'file' => $this->file_url,
         ));
 
         $link = "http://localhost:1337/api/transaction/upload";
-        return self::coreCurl($data, $link, self::$token);
+        return $this->coreCurl($data, $link, $this->token);
     }
 
-    private static function coreCurl($data = null, $link = null, $token = null) {
+    private function coreCurl($data = null, $link = null, $token = null) {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $link);
         curl_setopt($ch, CURLOPT_POST, 1);

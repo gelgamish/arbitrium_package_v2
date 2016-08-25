@@ -1,0 +1,14 @@
+{
+    "name": "Arbitrium/core",
+    "description": "Sample package for Arbitrium",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Arbitrium",
+            "email": "neil@idearobin.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}

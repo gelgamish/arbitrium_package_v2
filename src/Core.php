@@ -1,53 +1,83 @@
 <?php
 
-namespace Arbitrium\Core;
-
-// use Illuminate\Http\Request;
-// use Illuminate\Routing\Controller;
+namespace Arbitrium\Api;
 
 class Core {
+    const LEND_URL      = 'http://localhost:1337/api/lend/';
+    const UPLOAD_URL    = 'http://localhost:1337/api/transaction/upload';
 
-    protected $file_url = '';
-    protected $token = '';
-    protected $cardId = '';
-    protected $service = '';
+    protected $file_url = null;
+    protected $token    = null;
+    protected $cardId   = null;
+    protected $service  = null;
 
-    public function setFile($data) {
-        return $this->file_url = $data;
+    public function __construct($token)
+    {
+        $this->token = $token;
     }
 
-    public function setToken($data) {
-        return $this->token = $data;
+    public function setFile($data)
+    {
+        $this->file_url = $data;
+        return $this;
     }
 
-    public function setCardId($data) {
-        return $this->cardId = $data;
+    public function setCardId($data)
+    {
+        $this->cardId = $data;
+        return $this;
     }
 
-    public function setService($data) {
-        return $this->service = $data;
+    public function setService($data)
+    {
+        $this->service = $data;
+        return $this;
     }
 
-    public function Lend() {
+    public function lend()
+    {
+        $is_error = $this->validate([
+            'setFile'       => $this->file_url,
+            'setCardId'     => $this->cardId,
+            'setService'    => $this->service
+        ]);
+
+        if ($is_error)
+        {
+            return json_encode($is_error);
+        }
+
         $data = json_encode(array(
-            'file' => $this->file_url,
-            'cardId' => $this->cardId
+            'file'          => $this->file_url,
+            'cardId'        => $this->cardId
         ));
 
-        $link = "http://localhost:1337/api/lend/" . $this->service;
+        $link = self::LEND_URL . $this->service;
         return $this->coreCurl($data, $link, $this->token);
     }
 
-    public function Upload() {
+    public function upload()
+    {
+        $is_error = $this->validate([
+            'setFile'       => $this->file_url
+        ]);
+
+        if ($is_error)
+        {
+            return json_encode($is_error);
+        }
+
+
         $data = json_encode(array(
-            'file' => $this->file_url,
+            'file'          => $this->file_url,
         ));
 
-        $link = "http://localhost:1337/api/transaction/upload";
+        $link = self::UPLOAD_URL;
         return $this->coreCurl($data, $link, $this->token);
     }
 
-    private function coreCurl($data = null, $link = null, $token = null) {
+    private function coreCurl($data = null, $link = null, $token = null)
+    {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $link);
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -63,5 +93,17 @@ class Core {
         curl_close ($ch);
 
         return $server_output ;
+    }
+
+    public function validate($argument)
+    {
+        $ret = [];
+        foreach ($argument as $key => $value) {
+            if (!$value)
+            {
+                $ret[$key] = 'Cannot be null';
+            }
+        }
+        return $ret;
     }
 }

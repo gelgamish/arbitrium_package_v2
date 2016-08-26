@@ -1,5 +1,5 @@
 {
-    "name": "arbitrium/core",
+    "name": "arbitrium/api",
     "description": "Sample package for Arbitrium",
     "type": "library",
     "license": "MIT",
@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Arbitrium\\Core\\": "src"
+            "Arbitrium\\Api\\": "src"
         }
     }
 }
